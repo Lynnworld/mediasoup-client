@@ -30,14 +30,20 @@ export function addDependencyDescriptorExtension(rtpCapabilities: RtpCapabilitie
 		}
 		idMapping.set(ext.preferredId, true);
 	}
-	for (let i = 1; i < 15; i++) {
-		if (!idMapping.has(i)) {
-			rtpCapabilities.headerExtensions?.push({
-				kind: 'video',
-				uri: 'https://aomediacodec.github.io/av1-rtp-spec/#dependency-descriptor-rtp-header-extension',
-				preferredId: i,
-			});
-			return;
-		}
-	}
+	// for (let i = 1; i < 15; i++) {
+	// 	if (!idMapping.has(i)) {
+	// 		rtpCapabilities.headerExtensions?.push({
+	// 			kind: 'video',
+	// 			uri: 'https://aomediacodec.github.io/av1-rtp-spec/#dependency-descriptor-rtp-header-extension',
+	// 			preferredId: i,
+	// 		});
+	// 		return;
+	// 	}
+	// }
+	// temp fix
+	rtpCapabilities.headerExtensions?.push({
+		kind: 'video',
+		uri: 'https://aomediacodec.github.io/av1-rtp-spec/#dependency-descriptor-rtp-header-extension',
+		preferredId: 12,
+	});
 }
