@@ -18,3 +18,26 @@ export function addNackSupportForOpus(rtpCapabilities: RtpCapabilities): void {
 		}
 	}
 }
+
+/**
+ * This function adds Dependency Descriptor RTP Header Extension support in given capabilities.
+ */
+export function addDependencyDescriptorExtension(rtpCapabilities: RtpCapabilities): void {
+	const idMapping = new Map<number, boolean>();
+	for (const ext of rtpCapabilities.headerExtensions ?? []) {
+		if (ext.uri === 'https://aomediacodec.github.io/av1-rtp-spec/#dependency-descriptor-rtp-header-extension') {
+			return;
+		}
+		idMapping.set(ext.preferredId, true);
+	}
+	for (let i = 1; i < 15; i++) {
+		if (!idMapping.has(i)) {
+			rtpCapabilities.headerExtensions?.push({
+				kind: 'video',
+				uri: 'https://aomediacodec.github.io/av1-rtp-spec/#dependency-descriptor-rtp-header-extension',
+				preferredId: i,
+			});
+			return;
+		}
+	}
+}

@@ -122,6 +122,9 @@ export class Chrome111 extends HandlerInterface {
 			// libwebrtc supports NACK for OPUS but doesn't announce it.
 			ortcUtils.addNackSupportForOpus(nativeRtpCapabilities);
 
+			// add Dependency Descriptor RTP Header Extension support
+			ortcUtils.addDependencyDescriptorExtension(nativeRtpCapabilities);
+
 			return nativeRtpCapabilities;
 		} catch (error) {
 			try {
